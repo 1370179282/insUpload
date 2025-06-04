@@ -64,7 +64,7 @@ npm run dev
 
 4. 访问应用
 
-前端: http://localhost:3000
+前端: http://localhost:3001
 后端 API: http://localhost:5000/api
 
 ## 使用流程
