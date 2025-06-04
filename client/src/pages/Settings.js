@@ -45,7 +45,14 @@ const Settings = () => {
   const handleSaveSettings = async (values) => {
     try {
       setLoading(true);
-      await updateSettings(values);
+      // 处理Windows路径格式，将反斜杠转换为正斜杠
+      const processedValues = {
+        ...values,
+        outputPath: values.outputPath.replace(/\\/g, '/'),
+        materialRootPath: values.materialRootPath ? values.materialRootPath.replace(/\\/g, '/') : '',
+        videoRootPath: values.videoRootPath ? values.videoRootPath.replace(/\\/g, '/') : ''
+      };
+      await updateSettings(processedValues);
       message.success('设置已保存');
     } catch (error) {
       console.error('保存设置失败:', error);
@@ -316,6 +323,8 @@ const Settings = () => {
                 <Input placeholder="例如：/path/to/output 或 C:\path\to\output" />
                 <div style={{ fontSize: '12px', color: '#999', marginTop: '5px' }}>
                   提示：Windows路径格式为 C:\path\to\folder，Mac/Linux路径格式为 /path/to/folder
+                  <br />
+                  注意：Windows路径可以使用正斜杠(/)替代反斜杠(\)，如 C:/path/to/folder
                 </div>
               </Form.Item>
               
@@ -327,6 +336,8 @@ const Settings = () => {
                 <Input placeholder="例如：/path/to/materials 或 C:\path\to\materials" />
                 <div style={{ fontSize: '12px', color: '#999', marginTop: '5px' }}>
                   提示：路径需要真实存在，系统会在此路径下创建/查找 images 和 videos 目录
+                  <br />
+                  注意：Windows路径可以使用正斜杠(/)替代反斜杠(\)，如 C:/path/to/folder
                 </div>
               </Form.Item>
               

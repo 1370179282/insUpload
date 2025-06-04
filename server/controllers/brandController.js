@@ -18,8 +18,8 @@ exports.updateBrandWeight = async (req, res) => {
     const { weight } = req.body;
     
     // 验证权重值
-    if (weight < 1 || weight > 100) {
-      return res.status(400).json({ message: '权重值必须在1-100之间' });
+    if (weight < 0 || weight > 100) {
+      return res.status(400).json({ message: '权重值必须在0-100之间' });
     }
     
     const brand = await Brand.findByIdAndUpdate(
